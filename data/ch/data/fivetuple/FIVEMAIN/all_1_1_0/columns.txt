@@ -1,0 +1,7 @@
+columns format version: 1
+5 columns:
+`srcip` UInt32
+`destip` UInt32
+`flowprotocol` String
+`srcport` UInt8
+`destport` UInt8

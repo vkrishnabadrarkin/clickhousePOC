@@ -1,0 +1,8 @@
+columns format version: 1
+6 columns:
+`srcip` String
+`destip` String
+`flowprotocol` String
+`srcport` UInt8
+`destport` UInt8
+`flowhost` String

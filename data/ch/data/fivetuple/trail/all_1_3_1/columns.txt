@@ -1,0 +1,6 @@
+columns format version: 1
+4 columns:
+`id` UInt16
+`name` String
+`Department` String
+`Age` UInt16

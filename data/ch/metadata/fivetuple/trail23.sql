@@ -1,0 +1,10 @@
+ATTACH TABLE trail23
+(
+    id UInt16, 
+    name String, 
+    Department String, 
+    Age UInt16
+)
+ENGINE = MergeTree()
+ORDER BY id
+SETTINGS index_granularity = 8192
