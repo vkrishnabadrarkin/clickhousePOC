@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 export TABLE_NAME=FLOWINFODOfinal
-export BULK_SIZE=100 #10000000
+export BULK_SIZE=100000
 export DB_NAME=flows
-export EVENTS_PER_DAY=1000 #100000000
-python3 inserter.py
+#export EVENTS_PER_DAY=10
+python3 test.py
 
-# export TABLE_NAME=event_time_batch
+# export TABLE_NAME=event_time_batchsr
 # export BULK_SIZE=10 #10000000
 # export DB_NAME=merge_tree
 # export EVENTS_PER_DAY=10 #100000000

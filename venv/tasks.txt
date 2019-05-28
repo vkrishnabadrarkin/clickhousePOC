@@ -1,0 +1,15 @@
+1. type tag is enum .. add multiple values ? how?
+2. Geo loation not yet added
+3. metric data not yet attached .. How to edit/ add more values in the array of nested columns check?
+4. can we able to add column to nested data structure ?(if ip.name,ip.modelkey exist and want to add another ip.type is it possible )
+    (tried adding a column but added as a new column with name ip.type ..need to check
+
+5. metric data (as of now) adding all at once with diff time stamps ? (i.e while data is being generated)
+
+
+
+realisations :
+
+nested data structures cannot be updated,
+
+nested is used to avoid repeated code writing , instead we can just store them with pre defined indexing

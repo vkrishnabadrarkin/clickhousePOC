@@ -1,6 +1,0 @@
-columns format version: 1
-4 columns:
-`id` UInt64
-`time` DateTime
-`type` UInt16
-`pokemon_id` UInt16

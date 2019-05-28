@@ -1,8 +1,0 @@
-columns format version: 1
-6 columns:
-`naame` String
-`whatever` UInt8
-`money.kick` Array(String)
-`money.rey` Array(String)
-`double.jo` Array(String)
-`double.op` Array(String)

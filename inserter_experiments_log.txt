@@ -1,3 +1,7 @@
 2019-05-17 11:46:01 - table: event_time_batch - db: merge_tree - inserted: 3650 - took: 22.81 - bulk size: 10 - events per day: 10 - workers: 10
 2019-05-28 10:42:55 - table: event_time_batch - db: merge_tree - inserted: 365000 - took: 222.63 - bulk size: 100 - events per day: 1000 - workers: 10
 2019-05-28 10:53:19 - table: event_time_batch - db: merge_tree - inserted: 131000 - took: 80.14 - bulk size: 100 - events per day: 1000 - workers: 10
+2019-05-28 14:35:28 - table: FLOWINFODOfinal - db: flows - inserted: 0 - took: 1.17 - bulk size: 1 - events per day: 10 - workers: 10
+2019-05-28 14:40:46 - table: FLOWINFODOfinal - db: flows - inserted: 0 - took: 5.02 - bulk size: 1 - events per day: 10 - workers: 1000
+2019-05-28 14:42:58 - table: FLOWINFODOfinal - db: flows - inserted: 0 - took: 46.53 - bulk size: 1 - events per day: 10 - workers: 1000000
+2019-05-28 14:51:32 - table: event_time_batchsr - db: merge_tree - inserted: 0 - took: 0.0 - bulk size: 10 - events per day: 1 - workers: 100

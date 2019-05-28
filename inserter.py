@@ -2,11 +2,10 @@ import asyncio
 import datetime
 import logging
 import random
-import sys
+
 import time
 
-from random import getrandbits
-from ipaddress import IPv4Network, IPv4Address,ip_address,ip_network,ip_interface
+from ipaddress import ip_address,ip_network,ip_interface
 
 
 import asyncpool
@@ -80,7 +79,6 @@ def generate_random_event() -> dict:
     dst_Nsx_vc_num = dst_cluster_num//16
     dst_Nsx_manager_name = 'NSX' + str(dst_Nsx_vc_num)
     dst_VC_name = 'VC' + str(dst_Nsx_vc_num)
-    DC_name = 'DATACENTER101'
     src_ip = gen_ip(src_VM_num)
     dst_ip = gen_ip(dst_VM_num)
     src_ip_cidr = src_ip + '/27'
@@ -103,7 +101,7 @@ def generate_random_event() -> dict:
 
     flow_name = src_ip + 'VM' + str(src_VM_num) + dst_ip
     flow_tag_list = ['TAG_TRAFFIC_TYPE_UNKNOWN' , 'TAG_INTERNET_TRAFFIC' ,'TAG_EAST_WEST_TRAFFIC' , 'TAG_VM_VM_TRAFFIC', 'TAG_VM_PHY_TRAFFIC' , 'TAG_PHY_PHY_TRAFFIC' , 'TAG_SRC_IP_VMKNIC' ,'TAG_DST_IP_VMKNIC' , 'TAG_SRC_IP_ROUTER_INT' , 'TAG_DST_IP_ROUTER_INT', 'TAG_SRC_IP_VM','TAG_DST_IP_VM', 'TAG_SRC_IP_INTERNET','TAG_DST_IP_INTERNET', 'TAG_SRC_IP_PHYSICAL', 'TAG_DST_IP_PHYSICAL', 'TAG_SAME_HOST' , 'TAG_DIFF_HOST' , 'TAG_COMMON_HOST_INFO_UNKNOWN' , 'TAG_SHARED_SERVICE' , 'TAG_NOT_SHARED_SERVICE' , 'TAG_NETWORK_SWITCHED' , 'TAG_NETWORK_ROUTED' , 'TAG_NETWORK_UNKNOWN' , 'TAG_SRC_IP_VTEP' , 'TAG_DST_IP_VTEP' , 'TAG_UNICAST' , 'TAG_BROADCAST' , 'TAG_MULTICAST' , 'TAG_SRC_IP_LINK_LOCAL' , 'TAG_DST_IP_LINK_LOCAL' , 'TAG_SRC_IP_CLASS_E' , 'TAG_DST_IP_CLASS_E' , 'TAG_SRC_IP_CLASS_A_RESERVED' , 'TAG_DST_IP_CLASS_A_RESERVED' , 'TAG_INVALID_IP_PACKETS' , 'TAG_NOT_ANALYZED' , 'TAG_GENERIC_INTERNET_SRC_IP' , 'TAG_SNAT_DNAT_FLOW' , 'TAG_NATTED' , 'TAG_MULTINICS' , 'TAG_MULTI_NATRULE' , 'TAG_SRC_VC' , 'TAG_DST_VC' , 'TAG_SRC_AWS' , 'TAG_DST_AWS' , 'TAG_WITHIN_DC' , 'TAG_DIFF_DC' , 'TAG_SRC_IP_IN_SNAT_RULE_TARGET' , 'TAG_DST_IP_IN_DNAT_RULE_ORIGINAL' , 'TAG_SRC_IP_MULTI_NAT_RULE' , 'TAG_DNAT_IP_MULTI_NAT_RULE' , 'DEPRECATED_TAG_DST_IP_IN_SNAT_RULE_TARGET' , 'DEPRECATED_TAG_SRC_IP_IN_DNAT_RULE_ORIGINAL' , 'TAG_INVALID_IP_DOMAIN' , 'TAG_WITHIN_VPC' , 'TAG_DIFF_VPC' , 'TAG_SRC_IP_IN_MULTIPLE_SUBNETS' , 'TAG_DST_IP_IN_MULTIPLE_SUBNETS' , 'TAG_SFLOW' , 'TAG_PRE_NAT_FLOW' , 'TAG_POST_NAT_FLOW' , 'TAG_LOGICAL_FLOW' , 'TAG_SRC_K8S_POD' , 'TAG_DST_K8S_POD' , 'TAG_POD_POD_TRAFFIC' , 'TAG_VM_POD_TRAFFIC' , 'TAG_POD_PHYSICAL_TRAFFIC']
-    new_list = random.sample(flow_tag_list,5)
+    new_list = random.choice(flow_tag_list) #enum takes only one value
     reported_action = random.choice(['ALLOW' , 'DENY' , 'DROP', 'REJECT' , 'REDIRECT' , 'DONT_REDIRECT'])
     rule_num = random.randint(1,8888)
     ruleid = 'RULE'+str(rule_num)
@@ -125,7 +123,7 @@ def generate_random_event() -> dict:
         "modelkey_oid" : total_inserted_events,
         "port.fstart": [port_num],
         "port.fend": [port_num],
-        "port.display": [port_num],
+        "port.display": [str(port_num)],
         "port.ianaName": [port_name],
         "port.ianaPortDisplay": [port_name_num],
         "fProtocol": f_protocol,
@@ -154,7 +152,7 @@ def generate_random_event() -> dict:
         "dstIP.Ipmetadata_domain": ['UNKNOWN'],
         "dstIP.Ipmetadata_isp": ['UNKNOWN'],
         "TrfficType": traffic_type,
-        "shared": [1],
+        "shared": 1,
         "networkLayer": network_layer,
         "srcsubnet.prefixLength": [19],
         "srcsubnet.ipAddress": [src_ip + '/19'],
@@ -195,7 +193,7 @@ def generate_random_event() -> dict:
         "attribute_firewallmanager.name": ['AT_firewall_manager' + str(total_inserted_events)],
         "attribute_firewallmanager.modelkey_otype" : [random.choice([7,8,612])],
         "attribute_firewallmanager.modelkey_oid": [total_inserted_events],
-        "activedpIds": total_inserted_events//8,
+        "activedpIds": [total_inserted_events//8],
         "typeTagsPacked": 'KCC0IABACBAA',
         "protectionStatus": random.choice(['UNKNOWN_STATUS', 'PROTECTED', 'ANY_ANY','UN_PROTECTED']),
         "flowAction": 'ALLOW',
@@ -214,8 +212,8 @@ def generate_random_event() -> dict:
         "reporterEntity_reporter.modelkey_otype": [random.choice([7,8,603,612,663,917,5200])],
         "reporterEntity_reporter.modelkey_oid": [total_inserted_events],
         "SchemaVersion": random.randint(1,9),
-        "lastActivity": time.time(),
-        "activity": time.time()//2,
+        "lastActivity": int(time.time()//1),
+        "activity": int(time.time()//2),
         "srck8Info.k8scollectorId": [total_inserted_events//8],
         "srck8Info_k8sservice.name": ['service'+str(src_k8s_service_num)],
         "srck8Info_k8sservice.modelkey_otype": [1504],
@@ -369,9 +367,9 @@ def generate_random_event() -> dict:
         "srcTransportNode.name": ['TN'+str(src_Nsx_vc_num)],
         "srcTransportNode.modelkey_otype" : [843],
         "srcTransportNode.modelkey_oid": [src_Nsx_vc_num],
-        "dstTransportNode.name": ['TN' + str(dst_Nsx_manager_name)],
+        "dstTransportNode.name": ['TN' + str(dst_Nsx_vc_num)],
         "dstTransportNode.modelkey_otype": [843],
-        "dstTransportNode.modelkey_oid": [dst_Nsx_manager_name],
+        "dstTransportNode.modelkey_oid": [dst_Nsx_vc_num],
         "srcDvpg.name": ['DVPG'+ str(src_VM_num//4)],
         "srcDvpg.modelkey_otype": [3],
         "srcDvpg.modelkey_oid": [src_VM_num//4],
