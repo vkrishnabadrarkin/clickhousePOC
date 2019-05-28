@@ -1,0 +1,6 @@
+columns format version: 1
+4 columns:
+`naame` String
+`whatever` UInt8
+`money.kick` Array(String)
+`money.rey` Array(String)

@@ -1,0 +1,8 @@
+columns format version: 1
+6 columns:
+`name` String
+`rollnum` UInt16
+`dept` String
+`parents.father` Array(String)
+`parents.mother` Array(String)
+`phone` Int64
