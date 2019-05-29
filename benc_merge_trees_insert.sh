@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 
-export TABLE_NAME=FLOWINFODOfinal
+#export TABLE_NAME=FLOWINFODOfinal2
+#export BULK_SIZE=10
+#export DB_NAME=flows
+##export EVENTS_PER_DAY=10
+#python3 test.py
+
+export TABLE_NAME= data_csv
 export BULK_SIZE=100000
-export DB_NAME=flows
+export DB_NAME= csv_data_gen
 #export EVENTS_PER_DAY=10
-python3 test.py
+python3 createdatacsv.py
 
 # export TABLE_NAME=event_time_batchsr
 # export BULK_SIZE=10 #10000000
