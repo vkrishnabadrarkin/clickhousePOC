@@ -1,2 +1,0 @@
-2019-05-28 10:19:12 - table: FLOWINFODOfinal - db: flows - inserted: 0 - took: 5.19 - bulk size: 10 - events per day: 10 - workers: 10
-2019-05-28 10:34:27 - table: FLOWINFODOfinal - db: flows - inserted: 0 - took: 458.99 - bulk size: 100 - events per day: 1000 - workers: 10
