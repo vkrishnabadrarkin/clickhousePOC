@@ -156,7 +156,7 @@ def generate_random_event(mins) -> dict:
         "srcIP.cidr": [src_cidr],
         "srcIP.fstart": [start_src_ip_int],
         "srcIP.fend": [end_src_ip_int],
-        "srcIP.ipaddresstype": ['SUBNET'],
+        "srcIP.ipaddresstype": ['SUBNET'], #ENDPOINT
         "srcIP.privateaddress": [1],
         "srcIP.Source": ['TBD'],
         "srcIP.Ipmetadata_domain": ['TBD'],
