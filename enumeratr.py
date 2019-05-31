@@ -8,5 +8,7 @@ csv_file_columns_ip_vm_metadata = ['ipAddress', 'port', 'port_name', 'protocol',
 
 
 bad = enumerate(csv_file_columns_ip_vm_metadata)
-print(list(bad))
-
+#print(list(bad))
+with open(csv_bap) as csvv:
+    data=list(csv.reader(csvv))
+print(len(data))
