@@ -171,5 +171,3 @@ if __name__ == '__main__':
     for i in range(5000):
         print(f"writing to {csv_file} {i+1}th row")
         write_to_csv([gen_data(i)])
-
-
