@@ -1,15 +1,3 @@
-import csv
-csv_file = "info.csv"
-csv_columns = ['name','dept','year','cpi']
-data = {}
-
-try:
-    with open(csv_file, 'w') as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
-                # if flagg ==0:
-                #writer.writeheader()
-                # flagg = 1
-        for rowdata in data:
-            writer.writerow(rowdata)
-except IOError:
-     print("I/O error")
+def g(i,j):
+    return [j*1, j*2, j*3]
+print([g(i,j) for i in range(5) for j in range(2)])

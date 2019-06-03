@@ -1,5 +1,6 @@
 import csv
 from ipaddress import ip_network, ip_interface, ip_address
+import time
 
 listofip = []
 for k in ip_network("10.0.0.0/16"):
@@ -38,6 +39,7 @@ def write_to_csv(dict_data):
         with open(csv_file, 'a') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=csv_file_columns)
             writer.writerows(dict_data)
+            csvfile.close()
     except IOError:
         print("I/O error")
 
@@ -181,6 +183,10 @@ def gen_data(i)->dict:
 
 
 if __name__ == '__main__':
+    start = time.time()
     events = [gen_data(i) for i in range(1, 50000)]
-    csv_file = 'ipMetaDataInsertAtOneTime.csv'
+    csv_file = 'ipMetaDataInsertAtOneTimedict.csv'
     write_to_csv(events)
+    end = time.time()
+    took = round(end - start, 2)
+    print(f'inserted into {csv_file} 50000 ipmetadata took {took} seconds')
