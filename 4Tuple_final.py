@@ -21,10 +21,10 @@ ports_name_protocol = [(80, 'https', 'TCP'), (443, 'https', 'TCP'), (123, 'ntp',
 with open(csvDataFile) as csvBigData:
     data = list(csv.reader(csvBigData))
 
-csv_file = '4Tuple_final.csv'
+csv_file = '4Tuple_final_fake.csv'
 
 
-def write_to_csv(dict_data):
+async def write_to_csv(dict_data):
     try:
         with open(csv_file, 'a') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
@@ -63,11 +63,11 @@ def fetch_data(i, j):
 
 
 def fetch_datas(i):
-    return [fetch_data(i, j) for j in range(12500, 16500)]
+    return [fetch_data(i, j) for j in range(501, 701)]
 
 
 async def fill_events(_loop):
-    for i in range(12500):
+    for i in range(1,501):
         listDataForSingleVm = fetch_datas(i)
         await write_to_csv(listDataForSingleVm)
         print(f"four tuples {i}th set inserted")

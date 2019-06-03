@@ -173,7 +173,7 @@ def generate_random_event(mins) -> dict:
         "dstIP.Source": ['TBD'],
         "dstIP.Ipmetadata_domain": ['TBD'],
         "dstIP.Ipmetadata_isp": ['TBD'],
-        "TrfficType": traffic_type,
+        "trafficType": traffic_type,
         "shared": 1,
         "networkLayer": network_layer,
         "srcsubnet.prefixLength": [19],
@@ -454,7 +454,6 @@ def log_experiment(_took,csv_file):
         text = f"{time.ctime(time.time())} - " \
             f"csvFileName: {csv_file} - " \
             f"inserted: {total_inserted_events} - " \
-            f"workers:{inserter_config.WORKERS}-"\
             f"took: {round(_took, 2)} \n"
         f.write(text)
 
