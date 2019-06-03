@@ -4,7 +4,7 @@ from ipaddress import ip_network, ip_interface, ip_address
 listofip = []
 for k in ip_network("10.0.0.0/16"):
     listofip.append(str(k))
-#list will have 65536 ips
+#list contains 65536 ips
 
 csv_file_columns = ['ipAddress', 'vm_name', 'vm_otype', 'vm_oid', 'subnet_ip', 'subnet_netmask', 'subnet_prefixLength', 'subnet_networkAddress', 'subnet_cidr', 'subnet_start', 'subnet_end', 'ipAddressType', 'privateAddress', 'source', 'Ipmetadata_domain', 'ipmetadata_isp', 'host_name', 'host_otype', 'host_oid', 'dnsinfo_ipdomain', 'dnsinfo_ip', 'dnsinfo_domainname', 'dnsinfo_hostname', 'dnsinfo_source', 'k8s_service_name', 'k8s_service_otype', 'k8s_service_oid', 'k8s_cluster_name', 'k8s_cluster_otype', 'k8s_cluster_oid', 'k8s_namespace_name', 'k8s_namespace_otype', 'k8s_namespace_oid', 'k8s_node_name', 'k8s_node_otype', 'k8s_node_oid', 'IP_entity_name', 'IP_entity_otype', 'IP_entity_oid', 'Nic_name', 'Nic_otype', 'Nic_oid', 'sg_name', 'sg_otype', 'sg_oid', 'IP_set_name', 'IP_set_otype', 'IP_set_oid', 'STag_name', 'STag_otype', 'STag_oid', 'L2net_name', 'L2net_otype', 'L2net_oid', 'Grp_name', 'Grp_otype', 'Grp_oid', 'cluster_name', 'cluster_otype', 'cluster_oid', 'RP_name', 'RP_otype', 'RP_oid', 'DC_name', 'DC_otype', 'DC_oid', 'managerNSX_name', 'managerNSX_otype', 'managerNSX_oid', 'lookupDomain_name', 'lookupDomain_otype', 'lookupDomain_oid', 'vpc_name', 'vpc_otype', 'vpc_oid', 'transportNode_name', 'transportNode_otype', 'transportNode_oid', 'Dvpg_name', 'Dvpg_otype', 'Dvpg_oid', 'Dvs_name', 'Dvs_otype', 'Dvs_oid']
 
@@ -37,14 +37,13 @@ def write_to_csv(dict_data):
     try:
         with open(csv_file, 'a') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=csv_file_columns)
-            for data in dict_data:
-                writer.writerow(data)
+            writer.writerows(dict_data)
     except IOError:
         print("I/O error")
 
 def gen_data(i)->dict:
     ip = listofip[i]
-    int_ip =  int(ip_address(listofip[i]))
+    int_ip = int(ip_address(listofip[i]))
     subnet_Ip = str(ip_network(ip + '/27', strict=False)[0])
     start = int(ip_network(ip + '/27', strict=False)[0])
     end = int(ip_network(ip + '/27', strict=False)[-1])
@@ -94,7 +93,7 @@ def gen_data(i)->dict:
 
     return_value = {
         "ipAddress" : int_ip,
-        "vm_name" : 'VM-' + str(vm_num + 1) + ' - ' + ip,
+        "vm_name" : 'VM-' + str(vm_num + 1) + '-' + ip,
         "vm_otype" : 1,
         "vm_oid" : vm_oid_range[vm_num],
         "subnet_ip" : subnet_Ip,
@@ -182,6 +181,6 @@ def gen_data(i)->dict:
 
 
 if __name__ == '__main__':
-    for i in range(1,50000):
-        print(f"writing to {csv_file} {i+1}th row")
-        write_to_csv([gen_data(i)])
+    events = [gen_data(i) for i in range(1, 50000)]
+    csv_file = 'ipMetaDataInsertAtOneTime.csv'
+    write_to_csv(events)

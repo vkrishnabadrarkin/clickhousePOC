@@ -1,7 +1,6 @@
 import os
 
-HOST = os.getenv("HOST", "localhost")
-TABLE_NAME = os.getenv("TABLE_NAME")
-BULK_SIZE = int(os.getenv("BULK_SIZE", 1))
-WORKERS = int(os.getenv("WORKERS", 10))
-DB_NAME = os.getenv("DB_NAME")
+numVersionsPerday = int(os.getenv("numVersionsPerDay", 6))
+recordsPerFile = int(os.getenv("recordsPerFile",300000))
+numFourtuples = int(os.getenv("numFourtuples",50000000))
+

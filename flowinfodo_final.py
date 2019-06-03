@@ -1,19 +1,11 @@
 import csv
-import asyncio
 import time
 import datetime
 import random
 from ipaddress import ip_network, ip_address
-import pandas as pd
 import inserter_config
 
-#csv index = [(0, 'ipAddress'), (1, 'vm_name'), (2, 'vm_otype'), (3, 'vm_oid'), (4, 'subnet_ip'), (5, 'subnet_netmask'), (6, 'subnet_prefixLength'), (7, 'subnet_networkAddress'), (8, 'subnet_cidr'), (9, 'subnet_start'), (10, 'subnet_end'), (11, 'ipAddressType'), (12, 'privateAddress'), (13, 'source'), (14, 'Ipmetadata_domain'), (15, 'ipmetadata_isp'), (16, 'host_name'), (17, 'host_otype'), (18, 'host_oid'), (19, 'dnsinfo_ipdomain'), (20, 'dnsinfo_ip'), (21, 'dnsinfo_domainname'), (22, 'dnsinfo_hostname'), (23, 'dnsinfo_source'), (24, 'k8s_service_name'), (25, 'k8s_service_otype'), (26, 'k8s_service_oid'), (27, 'k8s_cluster_name'), (28, 'k8s_cluster_otype'), (29, 'k8s_cluster_oid'), (30, 'k8s_namespace_name'), (31, 'k8s_namespace_otype'), (32, 'k8s_namespace_oid'), (33, 'k8s_node_name'), (34, 'k8s_node_otype'), (35, 'k8s_node_oid'), (36, 'IP_entity_name'), (37, 'IP_entity_otype'), (38, 'IP_entity_oid'), (39, 'Nic_name'), (40, 'Nic_otype'), (41, 'Nic_oid'), (42, 'sg_name'), (43, 'sg_otype'), (44, 'sg_oid'), (45, 'IP_set_name'), (46, 'IP_set_otype'), (47, 'IP_set_oid'), (48, 'STag_name'), (49, 'STag_otype'), (50, 'STag_oid'), (51, 'L2net_name'), (52, 'L2net_otype'), (53, 'L2net_oid'), (54, 'Grp_name'), (55, 'Grp_otype'), (56, 'Grp_oid'), (57, 'cluster_name'), (58, 'cluster_otype'), (59, 'cluster_oid'), (60, 'RP_name'), (61, 'RP_otype'), (62, 'RP_oid'), (63, 'DC_name'), (64, 'DC_otype'), (65, 'DC_oid'), (66, 'managerNSX_name'), (67, 'managerNSX_otype'), (68, 'managerNSX_oid'), (69, 'lookupDomain_name'), (70, 'lookupDomain_otype'), (71, 'lookupDomain_oid'), (72, 'vpc_name'), (73, 'vpc_otype'), (74, 'vpc_oid'), (75, 'transportNode_name'), (76, 'transportNode_otype'), (77, 'transportNode_oid'), (78, 'Dvpg_name'), (79, 'Dvpg_otype'), (80, 'Dvpg_oid'), (81, 'Dvs_name'), (82, 'Dvs_otype'), (83, 'Dvs_oid')]
 
-#metadata_columns = ['ipAddress', 'vm_name', 'vm_otype', 'vm_oid', 'subnet_ip', 'subnet_netmask', 'subnet_prefixLength', 'subnet_networkAddress', 'subnet_cidr', 'subnet_start', 'subnet_end', 'ipAddressType', 'privateAddress', 'source', 'Ipmetadata_domain', 'ipmetadata_isp', 'host_name', 'host_otype', 'host_oid', 'dnsinfo_ipdomain', 'dnsinfo_ip', 'dnsinfo_domainname', 'dnsinfo_hostname', 'dnsinfo_source', 'k8s_service_name', 'k8s_service_otype', 'k8s_service_oid', 'k8s_cluster_name', 'k8s_cluster_otype', 'k8s_cluster_oid', 'k8s_namespace_name', 'k8s_namespace_otype', 'k8s_namespace_oid', 'k8s_node_name', 'k8s_node_otype', 'k8s_node_oid', 'IP_entity_name', 'IP_entity_otype', 'IP_entity_oid', 'Nic_name', 'Nic_otype', 'Nic_oid', 'sg_name', 'sg_otype', 'sg_oid', 'IP_set_name', 'IP_set_otype', 'IP_set_oid', 'STag_name', 'STag_otype', 'STag_oid', 'L2net_name', 'L2net_otype', 'L2net_oid', 'Grp_name', 'Grp_otype', 'Grp_oid', 'cluster_name', 'cluster_otype', 'cluster_oid', 'RP_name', 'RP_otype', 'RP_oid', 'DC_name', 'DC_otype', 'DC_oid', 'managerNSX_name', 'managerNSX_otype', 'managerNSX_oid', 'lookupDomain_name', 'lookupDomain_otype', 'lookupDomain_oid', 'vpc_name', 'vpc_otype', 'vpc_oid', 'transportNode_name', 'transportNode_otype', 'transportNode_oid', 'Dvpg_name', 'Dvpg_otype', 'Dvpg_oid', 'Dvs_name', 'Dvs_otype', 'Dvs_oid']
-#4t_columns = ['srcIP', 'dstIP', 'port', 'portName', 'protocol', 'trafficType', 'networkLayer', 'shared']
-#start,end change in db table
-#ip ADDRESSS as int
-#tags as array of strings
 total_inserted_events = 0
 total_flows_rows = 7200000000
 modelkey_oid_range = range(9876543219876,9883743219876)
@@ -29,7 +21,7 @@ fourTupleDataFile = '4Tuple_final.csv'
 event_date = datetime.datetime(2019, 6, 3)
 with open(metaDataFile) as csvIPData:
     ipMetaData = list(csv.reader(csvIPData))
-#ipMetaData = pd.read_csv('Ip_vm_metadata_final.csv')
+
 with open(fourTupleDataFile) as csvTUPLEData:
     fourTupleData = list(csv.reader(csvTUPLEData))
 
@@ -348,8 +340,8 @@ def write_to_csv(dict_data,i):
     try:
         with open(csv_file, 'a') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
-            for data in dict_data:
-                writer.writerow(data)
+            #for data in dict_data:
+            writer.writerows(dict_data)
     except IOError:
         print("I/O error")
 
@@ -368,11 +360,11 @@ if __name__ == '__main__':
     start = time.time()
     print("inserter started at", time.ctime(start))
     for i in range(1):
-        for j in range(200000):
+        for j in range(20000):
             events = fetch_metadata_gen6_Metricdatas(j)
             write_to_csv(events,i)
             total_inserted_events = total_inserted_events + 6
-            print(f'written {j*6}-{total_inserted_events} rows')
+            print(f'written -{total_inserted_events} rows')
     end = time.time()
     took = end - start
     print(f"inserter ended at {time.ctime(end)}; took: {took} seconds")
