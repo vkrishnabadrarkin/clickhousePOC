@@ -82,7 +82,6 @@ s = inserter_config.recordsPerFile
 if __name__ == '__main__':
     start = time.time()
     print("inserter started at", time.ctime(start))
-    j = 0
     events = []
     for i in range(1):
         with open('4Tuple_final_all_at_once.csv', 'r') as f:
