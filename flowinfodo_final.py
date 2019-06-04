@@ -4,6 +4,7 @@ import datetime
 import random
 from ipaddress import ip_network, ip_address
 import inserter_config
+import pandas as pd
 
 
 total_inserted_events = 0
@@ -67,7 +68,7 @@ def fetch_metadata(fourtuple,j):
         networkLayer = 'LAYER_3'
 
     flow_version_data = [flow_name, 8912345, 515, modelKey, port, port, str(port), port_name, port_display, protocol, 32, int(src_ip), '255.255.255.255', str(ip_address(int(src_ip))), str(ip_network(int(src_ip))), src_ip, src_ip, 'ENDPOINT', 1, 'TBD', 'TBD', 'TBD', 32, dst_ip, '255.255.255.255', str(ip_address(int(dst_ip))), str(ip_network(int(dst_ip))), dst_ip, dst_ip, 'ENDPOINT', 1, 'TBD', 'TBD', 'TBD', 'EAST_WEST_TRAFFIC', shared, networkLayer, ipMetaData[p][6], ipMetaData[p][4], ipMetaData[p][5], ipMetaData[p][7], ipMetaData[p][8], ipMetaData[p][9], ipMetaData[p][10], 'SUBNET', 1, ipMetaData[p][13], ipMetaData[p][14], ipMetaData[p][15], ipMetaData[q][6], ipMetaData[q][4], ipMetaData[q][5], ipMetaData[q][7], ipMetaData[q][8], ipMetaData[q][9], ipMetaData[q][10], 'SUBNET', 1, ipMetaData[q][13], ipMetaData[q][14], ipMetaData[q][15], int(ipMetaData[p][16] == ipMetaData[q][16]), random.sample(flow_tag_list, 4), [flow_name, src_vm_name, dst_vm_name], ['flows', 'traffic'], ['admin@vmware.com', 'root@vmware.com'], ['vmware@vmware.com', 'vrni@vmware.com'], 'ALLOW', 'RID-' + str(modelKey), collector_id, 'AT_RULE' + str(modelKey), 7, attribute_model_oid_range[total_inserted_events], 'AT_firewall_manager' + str(modelKey), 8, firewall_manager_model_oid_range[total_inserted_events], collector_id, 'KCC0IABACBAA', 'PROTECTED', 'ALLOW', ipMetaData[p][19], ipMetaData[p][20], ipMetaData[p][21], ipMetaData[p][22], ipMetaData[p][23], ipMetaData[q][19], ipMetaData[q][20], ipMetaData[q][21], ipMetaData[q][22], ipMetaData[q][23], collector_id, 'reporter' + str(modelKey), 603, reporter_entity_oid_range[total_inserted_events], collector_id, ipMetaData[p][24], ipMetaData[p][25], ipMetaData[p][26], ipMetaData[p][27], ipMetaData[p][28], ipMetaData[p][29], ipMetaData[p][30], ipMetaData[p][31], ipMetaData[p][32], ipMetaData[p][33], ipMetaData[p][34], ipMetaData[p][35], collector_id, ipMetaData[q][24], ipMetaData[q][25], ipMetaData[q][26], ipMetaData[q][27], ipMetaData[q][28], ipMetaData[q][29], ipMetaData[q][30], ipMetaData[q][31], ipMetaData[q][32], ipMetaData[q][33], ipMetaData[q][34], ipMetaData[q][35], ipMetaData[p][36], ipMetaData[p][37], ipMetaData[p][38], ipMetaData[q][36], ipMetaData[q][37], ipMetaData[q][38], ipMetaData[p][39], ipMetaData[p][40], ipMetaData[p][41], ipMetaData[q][39], ipMetaData[q][40], ipMetaData[q][41], src_vm_name, ipMetaData[p][2], ipMetaData[p][3], dst_vm_name, ipMetaData[q][2], ipMetaData[q][3], ipMetaData[p][42], ipMetaData[p][43], ipMetaData[p][44], ipMetaData[q][42], ipMetaData[q][43], ipMetaData[q][44], ipMetaData[p][45], ipMetaData[p][46], ipMetaData[p][47], ipMetaData[q][45], ipMetaData[q][46], ipMetaData[q][47], ipMetaData[p][48], ipMetaData[p][49], ipMetaData[p][50], ipMetaData[q][48], ipMetaData[q][49], ipMetaData[q][50], ipMetaData[p][51], ipMetaData[p][52], ipMetaData[p][53], ipMetaData[q][51], ipMetaData[q][52], ipMetaData[q][53], ipMetaData[p][54], ipMetaData[p][55], ipMetaData[p][56], ipMetaData[q][54], ipMetaData[q][55], ipMetaData[q][56], ipMetaData[p][57], ipMetaData[p][58], ipMetaData[p][59], ipMetaData[q][57], ipMetaData[q][58], ipMetaData[q][59], ipMetaData[p][60], ipMetaData[p][61], ipMetaData[p][62], ipMetaData[q][60], ipMetaData[q][61], ipMetaData[q][62], ipMetaData[p][63], ipMetaData[p][64], ipMetaData[p][65], ipMetaData[q][63], ipMetaData[q][64], ipMetaData[q][65], ipMetaData[p][16], ipMetaData[p][17], ipMetaData[p][18], ipMetaData[q][16], ipMetaData[q][17], ipMetaData[q][18], dst_ip + port_display, 6065, srvcEP_oid_range[total_inserted_events], ipMetaData[p][66], ipMetaData[p][67], ipMetaData[p][68], ipMetaData[q][66], ipMetaData[q][67], ipMetaData[q][68], 'GLOBAL', 658, flowdomain_modelkey_oid_range[total_inserted_events], ipMetaData[p][69], ipMetaData[p][70], ipMetaData[p][71], ipMetaData[q][69], ipMetaData[q][70], ipMetaData[q][71], ipMetaData[p][72], ipMetaData[p][73], ipMetaData[p][74], ipMetaData[q][72], ipMetaData[q][73], ipMetaData[q][74], ipMetaData[p][75], ipMetaData[p][76], ipMetaData[p][77], ipMetaData[q][75], ipMetaData[q][76], ipMetaData[q][77], ipMetaData[p][78], ipMetaData[p][79], ipMetaData[p][80], ipMetaData[q][78], ipMetaData[q][79], ipMetaData[q][80], ipMetaData[p][78], ipMetaData[p][79], ipMetaData[p][80], ipMetaData[q][81], ipMetaData[q][82], ipMetaData[q][83]]
-
+    #print(flow_version_data)
     return flow_version_data
 
 
@@ -88,7 +89,6 @@ if __name__ == '__main__':
             j = 0
             h = 0
             for eachTuple in csv.reader(f):
-                event = fetch_metadata(eachTuple,j)
                 all_active_timestamp = []
                 all_metrics_active = []
                 for v in range(t):
@@ -106,7 +106,7 @@ if __name__ == '__main__':
                 sch_version = random.randint(1, 9)
                 z = fetch_metadata(eachTuple,j)
                 for l in range(t):
-                    x = z
+                    x = z[:]
                     if (l == 0):
                         lastactivity = 0
                     else:
@@ -116,8 +116,10 @@ if __name__ == '__main__':
                     x.insert(96,lastactivity)
                     x.insert(97,all_active_timestamp[l]+lastactivity)
                     x = x + all_metrics_active[l]
+                    #print(x)
                     events.append(x)
                     total_inserted_events = total_inserted_events + 1
+                    #print(total_inserted_events)
                     if (total_inserted_events/s == total_inserted_events//s):
                         h = h + 1
                         csv_file = f'flowinfo{i}_{h}.csv'
@@ -127,9 +129,10 @@ if __name__ == '__main__':
                             print(f'a file created with {s} rows')
                         events = events[s:]
                 j = j+1
-                if (j == 500000): break
+                if (j == 1): break #changed from 500000
+    print(events)
     if (len(events) < s):
-        csvfilename = f'last set of data.csv'
+        csvfilename = f'last_set_of_data.csv'
         with open(csvfilename, 'w') as g:
             writer = csv.writer(g)
             writer.writerows(events)
