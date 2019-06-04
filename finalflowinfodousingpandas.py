@@ -22,8 +22,7 @@ srvcEP_oid_range = range(9919743219876,9926943219876)
 event_date = datetime.datetime(2019, 6, 3)
 
 metaDataFile = 'ipMetaDataInsertAtOneTime.csv'
-MetaData = pd.read_csv(metaDataFile,header=None)
-ipMetaData = MetaData.T
+ipMetaData = pd.read_csv(metaDataFile,header=None)
 
 
 def fetch_metadata(fourtuple,j):
@@ -38,8 +37,8 @@ def fetch_metadata(fourtuple,j):
     p = j//4000
     #dst_ip_meta_row
     q = 12500 + (j%4000)
-    src_vm_name = ipMetaData[p][1]
-    dst_vm_name = ipMetaData[q][1]
+    src_vm_name = ipMetaData[1][p]
+    dst_vm_name = ipMetaData[1][q]
     flow_name = src_vm_name + dst_vm_name + '-' + port_name + '-' + protocol
     flow_tag_list = ['TAG_TRAFFIC_TYPE_UNKNOWN', 'TAG_INTERNET_TRAFFIC', 'TAG_EAST_WEST_TRAFFIC', 'TAG_VM_VM_TRAFFIC',
                      'TAG_VM_PHY_TRAFFIC', 'TAG_PHY_PHY_TRAFFIC', 'TAG_SRC_IP_VMKNIC', 'TAG_DST_IP_VMKNIC',
@@ -63,14 +62,13 @@ def fetch_metadata(fourtuple,j):
     collector_id = collector_id_range[total_inserted_events]
 
     shared = 0
-    if (ipMetaData[p][7] == ipMetaData[q][7]):
+    if (ipMetaData[7][p] == ipMetaData[7][q]):
         networkLayer = 'LAYER_2'
         shared = 1
     else:
         networkLayer = 'LAYER_3'
 
-    flow_version_data = [flow_name, 8912345, 515, modelKey, port, port, str(port), port_name, port_display, protocol, 32, int(src_ip), '255.255.255.255', str(ip_address(int(src_ip))), str(ip_network(int(src_ip))), src_ip, src_ip, 'ENDPOINT', 1, 'TBD', 'TBD', 'TBD', 32, dst_ip, '255.255.255.255', str(ip_address(int(dst_ip))), str(ip_network(int(dst_ip))), dst_ip, dst_ip, 'ENDPOINT', 1, 'TBD', 'TBD', 'TBD', 'EAST_WEST_TRAFFIC', shared, networkLayer, ipMetaData[p][6], ipMetaData[p][4], ipMetaData[p][5], ipMetaData[p][7], ipMetaData[p][8], ipMetaData[p][9], ipMetaData[p][10], 'SUBNET', 1, ipMetaData[p][13], ipMetaData[p][14], ipMetaData[p][15], ipMetaData[q][6], ipMetaData[q][4], ipMetaData[q][5], ipMetaData[q][7], ipMetaData[q][8], ipMetaData[q][9], ipMetaData[q][10], 'SUBNET', 1, ipMetaData[q][13], ipMetaData[q][14], ipMetaData[q][15], int(ipMetaData[p][16] == ipMetaData[q][16]), random.sample(flow_tag_list, 4), [flow_name, src_vm_name, dst_vm_name], ['flows', 'traffic'], ['admin@vmware.com', 'root@vmware.com'], ['vmware@vmware.com', 'vrni@vmware.com'], 'ALLOW', 'RID-' + str(modelKey), collector_id, 'AT_RULE' + str(modelKey), 7, attribute_model_oid_range[total_inserted_events], 'AT_firewall_manager' + str(modelKey), 8, firewall_manager_model_oid_range[total_inserted_events], collector_id, 'KCC0IABACBAA', 'PROTECTED', 'ALLOW', ipMetaData[p][19], ipMetaData[p][20], ipMetaData[p][21], ipMetaData[p][22], ipMetaData[p][23], ipMetaData[q][19], ipMetaData[q][20], ipMetaData[q][21], ipMetaData[q][22], ipMetaData[q][23], collector_id, 'reporter' + str(modelKey), 603, reporter_entity_oid_range[total_inserted_events], collector_id, ipMetaData[p][24], ipMetaData[p][25], ipMetaData[p][26], ipMetaData[p][27], ipMetaData[p][28], ipMetaData[p][29], ipMetaData[p][30], ipMetaData[p][31], ipMetaData[p][32], ipMetaData[p][33], ipMetaData[p][34], ipMetaData[p][35], collector_id, ipMetaData[q][24], ipMetaData[q][25], ipMetaData[q][26], ipMetaData[q][27], ipMetaData[q][28], ipMetaData[q][29], ipMetaData[q][30], ipMetaData[q][31], ipMetaData[q][32], ipMetaData[q][33], ipMetaData[q][34], ipMetaData[q][35], ipMetaData[p][36], ipMetaData[p][37], ipMetaData[p][38], ipMetaData[q][36], ipMetaData[q][37], ipMetaData[q][38], ipMetaData[p][39], ipMetaData[p][40], ipMetaData[p][41], ipMetaData[q][39], ipMetaData[q][40], ipMetaData[q][41], src_vm_name, ipMetaData[p][2], ipMetaData[p][3], dst_vm_name, ipMetaData[q][2], ipMetaData[q][3], ipMetaData[p][42], ipMetaData[p][43], ipMetaData[p][44], ipMetaData[q][42], ipMetaData[q][43], ipMetaData[q][44], ipMetaData[p][45], ipMetaData[p][46], ipMetaData[p][47], ipMetaData[q][45], ipMetaData[q][46], ipMetaData[q][47], ipMetaData[p][48], ipMetaData[p][49], ipMetaData[p][50], ipMetaData[q][48], ipMetaData[q][49], ipMetaData[q][50], ipMetaData[p][51], ipMetaData[p][52], ipMetaData[p][53], ipMetaData[q][51], ipMetaData[q][52], ipMetaData[q][53], ipMetaData[p][54], ipMetaData[p][55], ipMetaData[p][56], ipMetaData[q][54], ipMetaData[q][55], ipMetaData[q][56], ipMetaData[p][57], ipMetaData[p][58], ipMetaData[p][59], ipMetaData[q][57], ipMetaData[q][58], ipMetaData[q][59], ipMetaData[p][60], ipMetaData[p][61], ipMetaData[p][62], ipMetaData[q][60], ipMetaData[q][61], ipMetaData[q][62], ipMetaData[p][63], ipMetaData[p][64], ipMetaData[p][65], ipMetaData[q][63], ipMetaData[q][64], ipMetaData[q][65], ipMetaData[p][16], ipMetaData[p][17], ipMetaData[p][18], ipMetaData[q][16], ipMetaData[q][17], ipMetaData[q][18], dst_ip + port_display, 6065, srvcEP_oid_range[total_inserted_events], ipMetaData[p][66], ipMetaData[p][67], ipMetaData[p][68], ipMetaData[q][66], ipMetaData[q][67], ipMetaData[q][68], 'GLOBAL', 658, flowdomain_modelkey_oid_range[total_inserted_events], ipMetaData[p][69], ipMetaData[p][70], ipMetaData[p][71], ipMetaData[q][69], ipMetaData[q][70], ipMetaData[q][71], ipMetaData[p][72], ipMetaData[p][73], ipMetaData[p][74], ipMetaData[q][72], ipMetaData[q][73], ipMetaData[q][74], ipMetaData[p][75], ipMetaData[p][76], ipMetaData[p][77], ipMetaData[q][75], ipMetaData[q][76], ipMetaData[q][77], ipMetaData[p][78], ipMetaData[p][79], ipMetaData[p][80], ipMetaData[q][78], ipMetaData[q][79], ipMetaData[q][80], ipMetaData[p][78], ipMetaData[p][79], ipMetaData[p][80], ipMetaData[q][81], ipMetaData[q][82], ipMetaData[q][83]]
-    #print(flow_version_data)
+    flow_version_data = [flow_name, 8912345, 515, modelKey, port, port, str(port), port_name, port_display, protocol, 32, int(src_ip), '255.255.255.255', str(ip_address(int(src_ip))), str(ip_network(int(src_ip))), src_ip, src_ip, 'ENDPOINT', 1, 'TBD', 'TBD', 'TBD', 32, dst_ip, '255.255.255.255', str(ip_address(int(dst_ip))), str(ip_network(int(dst_ip))), dst_ip, dst_ip, 'ENDPOINT', 1, 'TBD', 'TBD', 'TBD', 'EAST_WEST_TRAFFIC', shared, networkLayer, ipMetaData[6][p], ipMetaData[4][p], ipMetaData[5][p], ipMetaData[7][p], ipMetaData[8][p], ipMetaData[9][p], ipMetaData[10][p], 'SUBNET', 1, ipMetaData[13][p], ipMetaData[14][p], ipMetaData[15][p], ipMetaData[6][q], ipMetaData[4][q], ipMetaData[5][q], ipMetaData[7][q], ipMetaData[8][q], ipMetaData[9][q], ipMetaData[10][q], 'SUBNET', 1, ipMetaData[13][q], ipMetaData[14][q], ipMetaData[15][q], int(ipMetaData[16][p] == ipMetaData[16][q]), random.sample(flow_tag_list, 4), [flow_name, src_vm_name, dst_vm_name], ['flows', 'traffic'], ['admin@vmware.com', 'root@vmware.com'], ['vmware@vmware.com', 'vrni@vmware.com'], 'ALLOW', 'RID-' + str(modelKey), collector_id, 'AT_RULE' + str(modelKey), 7, attribute_model_oid_range[total_inserted_events], 'AT_firewall_manager' + str(modelKey), 8, firewall_manager_model_oid_range[total_inserted_events], collector_id, 'KCC0IABACBAA', 'PROTECTED', 'ALLOW', ipMetaData[19][p], ipMetaData[20][p], ipMetaData[21][p], ipMetaData[22][p], ipMetaData[23][p], ipMetaData[19][q], ipMetaData[20][q], ipMetaData[21][q], ipMetaData[22][q], ipMetaData[23][q], collector_id, 'reporter' + str(modelKey), 603, reporter_entity_oid_range[total_inserted_events], collector_id, ipMetaData[24][p], ipMetaData[25][p], ipMetaData[26][p], ipMetaData[27][p], ipMetaData[28][p], ipMetaData[29][p], ipMetaData[30][p], ipMetaData[31][p], ipMetaData[32][p], ipMetaData[33][p], ipMetaData[34][p], ipMetaData[35][p], collector_id, ipMetaData[24][q], ipMetaData[25][q], ipMetaData[26][q], ipMetaData[27][q], ipMetaData[28][q], ipMetaData[29][q], ipMetaData[30][q], ipMetaData[31][q], ipMetaData[32][q], ipMetaData[33][q], ipMetaData[34][q], ipMetaData[35][q], ipMetaData[36][p], ipMetaData[37][p], ipMetaData[38][p], ipMetaData[36][q], ipMetaData[37][q], ipMetaData[38][q], ipMetaData[39][p], ipMetaData[40][p], ipMetaData[41][p], ipMetaData[39][q], ipMetaData[40][q], ipMetaData[41][q], src_vm_name, ipMetaData[2][p], ipMetaData[3][p], dst_vm_name, ipMetaData[2][q], ipMetaData[3][q], ipMetaData[42][p], ipMetaData[43][p], ipMetaData[44][p], ipMetaData[42][q], ipMetaData[43][q], ipMetaData[44][q], ipMetaData[45][p], ipMetaData[46][p], ipMetaData[47][p], ipMetaData[45][q], ipMetaData[46][q], ipMetaData[47][q], ipMetaData[48][p], ipMetaData[49][p], ipMetaData[50][p], ipMetaData[48][q], ipMetaData[49][q], ipMetaData[50][q], ipMetaData[51][p], ipMetaData[52][p], ipMetaData[53][p], ipMetaData[51][q], ipMetaData[52][q], ipMetaData[53][q], ipMetaData[54][p], ipMetaData[55][p], ipMetaData[56][p], ipMetaData[54][q], ipMetaData[55][q], ipMetaData[56][q], ipMetaData[57][p], ipMetaData[58][p], ipMetaData[59][p], ipMetaData[57][q], ipMetaData[58][q], ipMetaData[59][q], ipMetaData[60][p], ipMetaData[61][p], ipMetaData[62][p], ipMetaData[60][q], ipMetaData[61][q], ipMetaData[62][q], ipMetaData[63][p], ipMetaData[64][p], ipMetaData[65][p], ipMetaData[63][q], ipMetaData[64][q], ipMetaData[65][q], ipMetaData[16][p], ipMetaData[17][p], ipMetaData[18][p], ipMetaData[16][q], ipMetaData[17][q], ipMetaData[18][q], dst_ip + port_display, 6065, srvcEP_oid_range[total_inserted_events], ipMetaData[66][p], ipMetaData[67][p], ipMetaData[68][p], ipMetaData[66][q], ipMetaData[67][q], ipMetaData[68][q], 'GLOBAL', 658, flowdomain_modelkey_oid_range[total_inserted_events], ipMetaData[69][p], ipMetaData[70][p], ipMetaData[71][p], ipMetaData[69][q], ipMetaData[70][q], ipMetaData[71][q], ipMetaData[72][p], ipMetaData[73][p], ipMetaData[74][p], ipMetaData[72][q], ipMetaData[73][q], ipMetaData[74][q], ipMetaData[75][p], ipMetaData[76][p], ipMetaData[77][p], ipMetaData[75][q], ipMetaData[76][q], ipMetaData[77][q], ipMetaData[78][p], ipMetaData[79][p], ipMetaData[80][p], ipMetaData[78][q], ipMetaData[79][q], ipMetaData[80][q], ipMetaData[78][p], ipMetaData[79][p], ipMetaData[80][p], ipMetaData[81][q], ipMetaData[82][q], ipMetaData[83][q]]
     return flow_version_data
 
 
@@ -91,45 +89,48 @@ if __name__ == '__main__':
             j = 0
             h = 0
             for eachTuple in csv.reader(f):
-                all_active_timestamp = []
-                all_metrics_active = []
-                for v in range(t):
-                    event_datetime = event_date.replace(minute=random.randint(0, 59), second=random.randint(0, 59))
-                    all_active_timestamp.append(int(event_datetime.timestamp()))
-                    srcBytes = random.randint(2500000, 28000000)
-                    dstBytes = random.randint(2500000, 28000000)
-                    totalBytes = srcBytes + dstBytes
-                    totalPackets = random.randint(1, 100)
-                    sessionCount = random.randint(100, 300)
-                    rttMax = random.randint(20000, 70000)
-                    rttAvg = (rttMax * 2) // 3
-                    all_metrics_active.append([totalBytes, srcBytes, dstBytes, totalPackets, sessionCount, rttMax, rttAvg])
-                all_active_timestamp.sort()
-                sch_version = random.randint(1, 9)
-                z = fetch_metadata(eachTuple,j)
-                for l in range(t):
-                    x = z[:]
-                    if (l == 0):
-                        lastactivity = 0
-                    else:
-                        lastactivity = all_active_timestamp[l - 1]
-                    x.insert(1,all_active_timestamp[l])
-                    x.insert(95,sch_version)
-                    x.insert(96,lastactivity)
-                    x.insert(97,all_active_timestamp[l]+lastactivity)
-                    x = x + all_metrics_active[l]
-                    #print(x)
-                    events.append(x)
-                    total_inserted_events = total_inserted_events + 1
-                    #print(total_inserted_events)
-                    if (total_inserted_events/s == total_inserted_events//s):
-                        h = h + 1
-                        df = pd.DataFrame(events)
-                        df.to_csv(f'flowData_{i+1}_{h}.csv.gz', header=False, index=False, compression='gzip')
-                        print(f'a file created with {s} rows')
-                        events = events.clear()
-                j = j+1
-                if (j == 500000): break #changed from 500000
+                j = j + 1
+                if (j < (h*s)/t):
+                    continue
+                else:
+                    all_active_timestamp = []
+                    all_metrics_active = []
+                    for v in range(t):
+                        event_datetime = event_date.replace(minute=random.randint(0, 59), second=random.randint(0, 59))
+                        all_active_timestamp.append(int(event_datetime.timestamp()))
+                        srcBytes = random.randint(2500000, 28000000)
+                        dstBytes = random.randint(2500000, 28000000)
+                        totalBytes = srcBytes + dstBytes
+                        totalPackets = random.randint(1, 100)
+                        sessionCount = random.randint(100, 300)
+                        rttMax = random.randint(20000, 70000)
+                        rttAvg = (rttMax * 2) // 3
+                        all_metrics_active.append([totalBytes, srcBytes, dstBytes, totalPackets, sessionCount, rttMax, rttAvg])
+                    all_active_timestamp.sort()
+                    sch_version = random.randint(1, 9)
+                    z = fetch_metadata(eachTuple,j)
+                    for l in range(t):
+                        x = z[:]
+                        if (l == 0):
+                            lastactivity = 0
+                        else:
+                            lastactivity = all_active_timestamp[l - 1]
+                        x.insert(1,all_active_timestamp[l])
+                        x.insert(95,sch_version)
+                        x.insert(96,lastactivity)
+                        x.insert(97,all_active_timestamp[l]+lastactivity)
+                        x = x + all_metrics_active[l]
+                        #print(x)
+                        events.append(x)
+                        total_inserted_events = total_inserted_events + 1
+                        #print(total_inserted_events)
+                        if (total_inserted_events/s == total_inserted_events//s):
+                            h = h + 1
+                            df = pd.DataFrame(events)
+                            df.to_csv(f'flow_Data_{i+1}_{h}fake.csv.gz', header=False, index=False, compression='gzip')
+                            print(f'a file created with {s} rows')
+                            events = events[s:]
+                    if (j == 500000): break
     #print(events)
     if (len(events) < s and len(events) > 0):
         df = pd.DataFrame(events)

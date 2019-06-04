@@ -127,7 +127,7 @@ if __name__ == '__main__':
                             writer = csv.writer(g)
                             writer.writerows(events)
                             print(f'a file created with {s} rows')
-                        events = events[s:]
+                        events = events.clear()
                 j = j+1
                 if (j == 1): break #changed from 500000
     print(events)
