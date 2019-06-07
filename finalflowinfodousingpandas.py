@@ -5,6 +5,7 @@ import random
 from ipaddress import ip_network, ip_address
 import inserter_config
 import pandas as pd
+import sys
 
 
 total_inserted_events = 0
@@ -87,7 +88,7 @@ if __name__ == '__main__':
     for i in range(1):
         with open('4Tuple_final_all_at_once.csv', 'r') as f:
             j = 0
-            h = 0
+            h = int(sys.argv[1])
             for eachTuple in csv.reader(f):
                 j = j + 1
                 if (j < (h*s)/t):
@@ -96,7 +97,7 @@ if __name__ == '__main__':
                     all_active_timestamp = []
                     all_metrics_active = []
                     for v in range(t):
-                        event_datetime = event_date.replace(minute=random.randint(0, 59), second=random.randint(0, 59))
+                        event_datetime = event_date.replace(hour=i, minute=random.randint(0, 59), second=random.randint(0, 59))
                         all_active_timestamp.append(int(event_datetime.timestamp()))
                         srcBytes = random.randint(2500000, 28000000)
                         dstBytes = random.randint(2500000, 28000000)
@@ -130,7 +131,6 @@ if __name__ == '__main__':
                             df.to_csv(f'flow_Data_{i+1}_{h}fake.csv.gz', header=False, index=False, compression='gzip')
                             print(f'a file created with {s} rows')
                             events = events[s:]
-                    if (j == 500000): break
     #print(events)
     if (len(events) < s and len(events) > 0):
         df = pd.DataFrame(events)
