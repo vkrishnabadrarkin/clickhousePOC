@@ -1,3 +1,20 @@
+IMP FILES :
+            update inserter_config according to the requirement(need to re-check)
+            4Tuple_final.py - generates a fifty million 4 tuple file in single file named '4Tuple_final_all_at_once.csv'  
+            Ipmetadatalist.py - generates meta data of 50k ip addresses in single file named 'ipMetaDataInsertAtOneTime.csv'
+            DATAGEN_FINAL.py with two arguments to create flow versions.
+            
+
+
+
+
+
+
+
+
+
+
+
 # clickhousePOC
 created some unnecesary files for understanding sake.
 # will be upadating info regarding files in some time\
